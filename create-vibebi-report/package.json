@@ -1,10 +1,10 @@
 {
-  "name": "@euphon/create-vibebi",
+  "name": "create-vibebi",
   "version": "0.1.0",
   "description": "Scaffold a VibeBI report microservice (FastAPI + Vite/React/ECharts)",
   "type": "module",
   "bin": {
-    "vibebi": "bin/cli.mjs"
+    "vibebi": "./bin/cli.mjs"
   },
   "files": [
     "bin",

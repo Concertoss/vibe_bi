@@ -12,12 +12,12 @@ function printHelp() {
 vibebi — 在当前目录生成 VibeBI 报表脚手架
 
 用法:
-  npx @euphon/create-vibebi [项目目录名]
-  npm create @euphon/vibebi [项目目录名]
+  npx create-vibebi [项目目录名]
+  npm create vibebi [项目目录名]
   vibebi [项目目录名]
 
 示例:
-  npx @euphon/create-vibebi sales-board
+  npx create-vibebi sales-board
 
 选项:
   -h, --help     显示帮助
