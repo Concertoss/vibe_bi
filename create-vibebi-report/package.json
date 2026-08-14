@@ -1,10 +1,10 @@
 {
-  "name": "create-vibebi-report",
+  "name": "@euphon/create-vibebi",
   "version": "0.1.0",
   "description": "Scaffold a VibeBI report microservice (FastAPI + Vite/React/ECharts)",
   "type": "module",
   "bin": {
-    "create-vibebi-report": "./bin/cli.mjs"
+    "vibebi": "bin/cli.mjs"
   },
   "files": [
     "bin",
@@ -21,14 +21,23 @@
     "report",
     "fastapi",
     "react",
-    "echarts"
+    "echarts",
+    "create-vibebi"
   ],
-  "license": "MIT",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YOUR_ORG/VibeBI.git",
+    "url": "git+https://github.com/Concertoss/vibe_bi.git",
     "directory": "create-vibebi-report"
   },
+  "homepage": "https://github.com/Concertoss/vibe_bi#readme",
+  "bugs": {
+    "url": "https://github.com/Concertoss/vibe_bi/issues"
+  },
+  "author": "euphoniums",
   "scripts": {
     "sync-template": "node ./scripts/sync-template.mjs",
     "prepublishOnly": "node ./scripts/sync-template.mjs"

@@ -1,33 +1,39 @@
 # VibeBI
 
-轻量级、AI 原生的报表底座系统。
+轻量级、AI 原生的报表底座系统。  
+仓库：https://github.com/Concertoss/vibe_bi
 
-## 结构
+## 30 秒新建一张报表
+
+不需要先 clone 本仓库：
+
+```bash
+npx @euphon/create-vibebi sales-board
+```
+
+或全局安装后：
+
+```bash
+npm install -g @euphon/create-vibebi
+vibebi sales-board
+```
+
+生成后按提示启动 `backend` / `frontend`，再在 Host「菜单管理」挂上即可。
+
+## 仓库结构
 
 | 目录 | 说明 |
 |------|------|
 | `host-backend/` | 底座后端：鉴权、菜单、数据权限、反向代理网关 |
 | `host-frontend/` | 底座前端：登录、Shell、Wujie、权限管理 |
 | `template-report/` | 子报表脚手架源模板 |
-| `create-vibebi-report/` | **一键生成新报表的 CLI**（任意目录可用） |
+| `create-vibebi-report/` | npm 包 `@euphon/create-vibebi`（命令 `vibebi`） |
 
-## 新建一张报表（脚手架命令）
-
-```bash
-# 本机一次性链接（开发）
-cd create-vibebi-report
-npm run sync-template
-npm link
-
-# 然后在任意目录
-create-vibebi-report sales-board
-```
-
-推到 GitHub / 发布 npm 后的用法见 [create-vibebi-report/README.md](create-vibebi-report/README.md)。
-
-## 一键启动底座（Docker）
+## 启动底座（Docker）
 
 ```bash
+git clone https://github.com/Concertoss/vibe_bi.git
+cd vibe_bi
 docker compose up --build
 ```
 
@@ -42,4 +48,4 @@ docker compose up --build
 
 ## 本地分别启动
 
-见各子目录 `README.md`。原始需求说明见 [READEME.md](READEME.md)。
+见各子目录 `README.md`。

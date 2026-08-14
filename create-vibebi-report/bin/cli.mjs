@@ -9,16 +9,15 @@ const packageRoot = path.resolve(__dirname, "..");
 
 function printHelp() {
   console.log(`
-create-vibebi-report — 在当前目录生成 VibeBI 报表脚手架
+vibebi — 在当前目录生成 VibeBI 报表脚手架
 
 用法:
-  npx create-vibebi-report [项目目录名]
-  npm create vibebi-report@latest [项目目录名]
-  create-vibebi-report [项目目录名]
+  npx @euphon/create-vibebi [项目目录名]
+  npm create @euphon/vibebi [项目目录名]
+  vibebi [项目目录名]
 
 示例:
-  mkdir my-workspace && cd my-workspace
-  npx create-vibebi-report sales-board
+  npx @euphon/create-vibebi sales-board
 
 选项:
   -h, --help     显示帮助
@@ -37,7 +36,7 @@ async function main() {
   const positional = args.filter((a) => !a.startsWith("-"));
   const defaultDir = positional[0] || "my-report";
 
-  console.log("\n📦 VibeBI Report Scaffold\n");
+  console.log("\n📦 vibebi — VibeBI Report Scaffold\n");
 
   const answers = await askQuestions(
     {
