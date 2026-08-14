@@ -1,0 +1,4 @@
+node_modules/
+_scaffold-smoke/
+*.log
+.DS_Store

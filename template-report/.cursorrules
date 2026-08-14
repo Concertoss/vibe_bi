@@ -1,0 +1,66 @@
+# VibeBI Template Report — AI 报表开发硬性规范
+
+你正在 `template-report` 子报表脚手架中工作。本目录是可被底座 Host 通过无界(Wujie)加载的独立微服务。
+**复制本目录创建新报表时，必须遵守下列硬性规则；违反即视为不合格实现。**
+
+---
+
+## 0. 范围边界（强制）
+
+- 只修改本目录（`frontend/` 与 `backend/`）。
+- 禁止修改 `host-frontend`、`host-backend` 或根级鉴权/菜单，除非用户明确要求。
+- 禁止在子报表内实现登录、用户管理、全局菜单。
+
+---
+
+## 1. 报表元数据契约（强制）
+
+- **必须实现** `GET /api/meta`，声明 `report_code`、`title`、`filterable_fields`。
+- 每个可过滤字段至少包含：`field_key`、`label`、`operators`、`values`（或 `values_api`）。
+- 敏感字段可设 `"required": true`：Host 网关在缺少对应数据权限规则时返回 403。
+- Host 通过「同步元数据」缓存本接口，用于数据权限配置 UI。
+
+---
+
+## 2. 后端数据权限（强制，最高优先级）
+
+- **编写任何业务查询接口时，必须从 Header 获取 `X-Data-Filters`（及兼容的 `X-Data-Scope`）并用于过滤数据。**
+- 必须使用 `backend/app/deps.py` 中的 `get_data_filters` / `build_where_from_filters`：
+
+```python
+from fastapi import Depends
+from app.deps import get_data_filters, build_where_from_filters
+
+@router.get("/api/xxx")
+async def xxx(filters: list[dict] = Depends(get_data_filters)):
+    where_sql, params = build_where_from_filters(filters, allowed_fields={"dept", "region"})
+```
+
+- **禁止**硬编码角色白名单绕过过滤；**禁止**信任前端筛选项覆盖网关条件（前端条件只能与网关取交集）。
+- Host 嵌入时走 `/api/proxy/{report_code}/...`，禁止直连绕过网关。
+
+---
+
+## 3. 前端交互与布局（强制）
+
+- 技术栈：Vite + React + TypeScript + Tailwind + axios + ECharts。
+- **必须保持响应式布局**（`sm:` / `md:` / `lg:`）。
+- **图表必须通过** `src/components/charts/BaseChart.tsx`。
+- **必须包含加载骨架屏**（`ReportSkeleton`）。
+- Token：`window.$wujie?.props?.token` → 本地 fallback；若有 `proxyBase` 走网关代理。
+
+---
+
+## 4. 后端工程约定
+
+- FastAPI；`/api/*` + `/health` + `/api/meta`。
+- CORS 对网关与本地调试开放。
+- 返回结构化 JSON，便于组装 ECharts option。
+
+---
+
+## 5. 代码风格
+
+- 改动保持可运行、可复制；不要引入未要求的大型状态库/UI 框架。
+- 新增报表时优先复制本脚手架目录。
+- 用中文注释标明与 Gateway / Wujie / Data-Filters 相关的边界假设。

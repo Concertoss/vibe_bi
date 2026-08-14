@@ -1,0 +1,49 @@
+services:
+  host-backend:
+    build: ./host-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./host-backend/app:/app/app
+      - ./host-backend/data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+      - VIBEBI_DEBUG=true
+      - VIBEBI_DATABASE_URL=sqlite:///./data/vibebi.db
+      # Server-side proxy target (Docker DNS); Wujie component_url stays localhost for browser
+      - VIBEBI_SEED_TEMPLATE_BACKEND_URL=http://template-report-backend:8001
+      - VIBEBI_SEED_TEMPLATE_COMPONENT_URL=http://localhost:5174
+
+  host-frontend:
+    build: ./host-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./host-frontend/src:/app/src
+      - ./host-frontend/index.html:/app/index.html
+    environment:
+      # Vite 开发服务器在容器内代理 API 请求
+      - VITE_API_PROXY=http://host-backend:8000
+    depends_on:
+      - host-backend
+
+  template-report-backend:
+    build: ./template-report/backend
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./template-report/backend/app:/app/app
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  template-report-frontend:
+    build: ./template-report/frontend
+    ports:
+      - "5174:5174"
+    volumes:
+      - ./template-report/frontend/src:/app/src
+      - ./template-report/frontend/index.html:/app/index.html
+    environment:
+      - VITE_API_PROXY=http://template-report-backend:8001
+    depends_on:
+      - template-report-backend

@@ -1,0 +1,36 @@
+{
+  "name": "create-vibebi-report",
+  "version": "0.1.0",
+  "description": "Scaffold a VibeBI report microservice (FastAPI + Vite/React/ECharts)",
+  "type": "module",
+  "bin": {
+    "create-vibebi-report": "./bin/cli.mjs"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "template",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "vibebi",
+    "scaffold",
+    "report",
+    "fastapi",
+    "react",
+    "echarts"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YOUR_ORG/VibeBI.git",
+    "directory": "create-vibebi-report"
+  },
+  "scripts": {
+    "sync-template": "node ./scripts/sync-template.mjs",
+    "prepublishOnly": "node ./scripts/sync-template.mjs"
+  }
+}

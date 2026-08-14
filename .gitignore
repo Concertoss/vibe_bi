@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Build / cache
+dist/
+build/
+.cache/
+.pytest_cache/
+*.tsbuildinfo
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+
+# Local databases
+host-backend/data/*.db
+*.db
+*.sqlite3
+
+# Logs & OS
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Scaffold smoke / local scratch
+create-vibebi-report/_scaffold-smoke/
